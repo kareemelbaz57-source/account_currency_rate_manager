@@ -55,6 +55,7 @@ class ResCurrency(models.Model):
         }
 
     def action_auto_update_rates(self):
+        self = self.sudo()
         company = self.env.company
         provider = company.currency_provider
 
