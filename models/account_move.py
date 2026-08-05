@@ -1,13 +1,20 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    currency_current_rate = fields.Float(
+    currency_rate = fields.Float(
         string="Exchange Rate",
-        related="currency_id.current_rate",
+        compute="_compute_currency_rate",
         digits=(12, 6),
         readonly=True,
         store=False,
     )
+
+    @api.depends("currency_id")
+    def _compute_currency_rate(self):
+        for move in self:
+            move.currency_rate = (
+                move.currency_id.current_rate if move.currency_id else 1.0
+            )
