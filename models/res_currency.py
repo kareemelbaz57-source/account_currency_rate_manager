@@ -55,54 +55,55 @@ class ResCurrency(models.Model):
         }
 
     def action_auto_update_rates(self):
-        provider = self.env.company.currency_provider.sudo().get_param(
-            "account_currency_rate_manager.provider",
-            default="manual",
-        )
+        company = self.env.company
+        provider = company.currency_provider
 
         if provider == "manual":
             return True
 
-        company = self.env.company
         base_currency = company.currency_id.name
 
-       rates = CurrencyRateProvider.get_rates(
-    provider,
-    base_currency,
-)
+        rates = CurrencyRateProvider.get_rates(
+            provider,
+            base_currency,
+        )
 
-if not rates:
-    return True
+        if not rates:
+            return True
+
+        today = fields.Date.today()
 
         for currency in self.search([]):
-            if currency.name not in rates:
+            new_rate = rates.get(currency.name)
+
+            if not new_rate:
                 continue
 
             old_rate = currency.current_rate
 
-            existing_rate = self.env["res.currency.rate"].search(
+            rate_record = self.env["res.currency.rate"].search(
                 [
                     ("currency_id", "=", currency.id),
                     ("company_id", "=", company.id),
-                    ("name", "=", fields.Date.today()),
+                    ("name", "=", today),
                 ],
                 limit=1,
             )
 
-            if existing_rate:
-                existing_rate.write({
-                    "rate": rates[currency.name],
+            if rate_record:
+                rate_record.write({
+                    "rate": new_rate,
                 })
             else:
                 self.env["res.currency.rate"].create({
                     "currency_id": currency.id,
                     "company_id": company.id,
-                    "name": fields.Date.today(),
-                    "rate": rates[currency.name],
+                    "name": today,
+                    "rate": new_rate,
                 })
 
             currency.write({
-                "manual_rate": rates[currency.name],
+                "manual_rate": new_rate,
                 "last_update": fields.Datetime.now(),
                 "updated_by": self.env.user.id,
             })
@@ -111,7 +112,7 @@ if not rates:
                 "currency_id": currency.id,
                 "company_id": company.id,
                 "old_rate": old_rate,
-                "new_rate": rates[currency.name],
+                "new_rate": new_rate,
                 "update_type": "automatic",
                 "updated_by": self.env.user.id,
             })
