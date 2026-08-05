@@ -7,17 +7,35 @@
         <field name="inherit_id" ref="base.view_currency_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//sheet/group" position="inside">
+            <xpath expr="//sheet" position="inside">
 
-                <group string="Exchange Rate Manager">
+                <group string="Currency Rate Manager">
 
-                    <field name="current_rate" readonly="1"/>
+                    <group>
 
-                    <field name="manual_rate"/>
+                        <field name="current_rate" readonly="1"/>
 
-                    <field name="last_update" readonly="1"/>
+                        <field name="manual_rate"/>
 
-                    <field name="updated_by" readonly="1"/>
+                    </group>
+
+                    <group>
+
+                        <field name="last_update" readonly="1"/>
+
+                        <field name="updated_by" readonly="1"/>
+
+                    </group>
+
+                    <footer>
+
+                        <button
+                            name="action_update_manual_rate"
+                            string="Update Rate"
+                            type="object"
+                            class="btn-primary"/>
+
+                    </footer>
 
                 </group>
 
