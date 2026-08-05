@@ -7,64 +7,41 @@ from ..services.provider import CurrencyRateProvider
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    currency_rate_provider = fields.Selection(
-        [
-            ("manual", "Manual"),
-            ("frankfurter", "Frankfurter"),
-            ("ecb", "European Central Bank"),
-        ],
-        string="Currency Provider",
-        config_parameter="account_currency_rate_manager.provider",
-        default="manual",
+    currency_provider = fields.Selection(
+        related="company_id.currency_provider",
+        readonly=False,
     )
 
     currency_auto_update = fields.Boolean(
-        string="Automatic Currency Update",
-        config_parameter="account_currency_rate_manager.auto_update",
+        related="company_id.currency_auto_update",
+        readonly=False,
+    )
+
+    currency_update_interval = fields.Integer(
+        related="company_id.currency_update_interval",
+        readonly=False,
     )
 
     def action_test_connection(self):
         self.ensure_one()
 
-        provider = self.currency_rate_provider
-
-        if provider == "manual":
+        if self.currency_provider == "manual":
             raise UserError(_("Manual provider does not require testing."))
 
-        base_currency = self.env.company.currency_id.name
+        rates = CurrencyRateProvider.get_rates(
+            self.currency_provider,
+            self.company_id.currency_id.name,
+        )
 
-        try:
-            rates = CurrencyRateProvider.get_rates(
-                provider,
-                base_currency,
-            )
+        if not rates:
+            raise UserError(_("Connection failed."))
 
-            if not rates:
-                raise UserError(_("No exchange rates received."))
-
-            self.env["currency.rate.log"].create({
-                "provider": provider,
-                "status": "success",
-                "message": "Connection successful.",
-                "company_id": self.env.company.id,
-            })
-
-            return {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "params": {
-                    "title": _("Success"),
-                    "message": _("Connection successful."),
-                    "sticky": False,
-                },
-            }
-
-        except Exception as error:
-            self.env["currency.rate.log"].create({
-                "provider": provider,
-                "status": "failed",
-                "message": str(error),
-                "company_id": self.env.company.id,
-            })
-
-            raise UserError(str(error))
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Success"),
+                "message": _("Connection successful."),
+                "sticky": False,
+            },
+        }
