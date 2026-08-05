@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_currency_rate_update_wizard" model="ir.ui.view">
+        <field name="name">currency.rate.update.wizard.form</field>
+        <field name="model">currency.rate.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Currency Rate">
+
+                <group>
+                    <field name="currency_id"/>
+                    <field name="rate"/>
+                </group>
+
+                <footer>
+                    <button name="action_confirm"
+                            string="Update"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Cancel"
+                            special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_currency_rate_update_wizard" model="ir.actions.act_window">
+        <field name="name">Update Currency Rate</field>
+        <field name="res_model">currency.rate.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
