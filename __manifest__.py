@@ -17,13 +17,12 @@ Community & Enterprise
         "security/ir.model.access.csv",
         "views/res_currency_views.xml",
         "views/account_move_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/currency_rate_history_views.xml",
+        "views/currency_rate_log_views.xml",
+        "views/menu.xml",
         "wizard/currency_rate_update_wizard.xml",
         "data/ir_cron.xml",
-        "views/account_move_views.xml"
-        "views/res_config_settings_views.xml"
-        "views/currency_rate_history_views.xml"
-        "views/currency_rate_log_views.xml"
-        "views/menu.xml"
     ],
     "installable": True,
     "application": False,
