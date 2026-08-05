@@ -6,10 +6,14 @@ class CurrencyRateProvider:
 
     @staticmethod
     def get_rates(provider, base_currency):
-        if provider == "frankfurter":
-            return FrankfurterService.get_rates(base_currency)
+        providers = {
+            "frankfurter": FrankfurterService,
+            "ecb": ECBService,
+        }
 
-        if provider == "ecb":
-            return ECBService.get_rates(base_currency)
+        service = providers.get(provider)
 
-        return {}
+        if not service:
+            return {}
+
+        return service.get_rates(base_currency)
