@@ -13,15 +13,19 @@
 
                     <block title="Currency Rate Settings">
 
-                        <setting string="Rate Provider">
-                            <field name="currency_rate_provider"/>
+                        <setting string="Provider">
+                            <field name="currency_provider"/>
                         </setting>
 
                         <setting string="Automatic Update">
                             <field name="currency_auto_update"/>
                         </setting>
 
-                        <setting string="Test Connection">
+                        <setting string="Update Interval">
+                            <field name="currency_update_interval"/>
+                        </setting>
+
+                        <setting string="Connection">
 
                             <button
                                 name="action_test_connection"
