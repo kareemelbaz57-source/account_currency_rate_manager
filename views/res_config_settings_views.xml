@@ -21,6 +21,16 @@
                             <field name="currency_auto_update"/>
                         </setting>
 
+                        <setting string="Test Connection">
+
+                            <button
+                                name="action_test_connection"
+                                type="object"
+                                string="Test Connection"
+                                class="btn-primary"/>
+
+                        </setting>
+
                     </block>
 
                 </app>
