@@ -26,6 +26,7 @@ Community & Enterprise
         "wizard/export_currency_history_wizard.xml",
         "data/ir_cron.xml",
     ],
+    "demo": [],
     "installable": True,
     "application": False,
     "auto_install": False,
