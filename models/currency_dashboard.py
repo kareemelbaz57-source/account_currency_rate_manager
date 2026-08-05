@@ -10,13 +10,18 @@ class CurrencyDashboard(models.TransientModel):
         compute="_compute_dashboard",
     )
 
+    history_count = fields.Integer(
+        string="History Records",
+        compute="_compute_dashboard",
+    )
+
     last_update = fields.Datetime(
         string="Last Update",
         compute="_compute_dashboard",
     )
 
-    history_count = fields.Integer(
-        string="History Records",
+    provider = fields.Char(
+        string="Provider",
         compute="_compute_dashboard",
     )
 
@@ -35,3 +40,12 @@ class CurrencyDashboard(models.TransientModel):
             record.currency_count = currency_model.search_count([])
             record.history_count = history_model.search_count([])
             record.last_update = last_currency.last_update
+            record.provider = self.env.company.currency_provider
+
+    def action_update_now(self):
+        self.env["res.currency"].action_auto_update_rates()
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
