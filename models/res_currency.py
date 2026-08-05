@@ -70,6 +70,13 @@ class ResCurrency(models.Model):
         return True
 
    def action_auto_update_rates(self):
+       provider = self.env["ir.config_parameter"].sudo().get_param(
+    "account_currency_rate_manager.provider",
+    default="manual",
+)
+
+if provider != "frankfurter":
+    return True
     company = self.env.company
 
     base_currency = company.currency_id.name
