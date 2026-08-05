@@ -56,6 +56,7 @@ class ResCurrency(models.Model):
 
     def action_auto_update_rates(self):
         self = self.sudo()
+
         company = self.env.company
         provider = company.currency_provider
 
@@ -64,58 +65,76 @@ class ResCurrency(models.Model):
 
         base_currency = company.currency_id.name
 
-        rates = CurrencyRateProvider.get_rates(
-            provider,
-            base_currency,
-        )
-
-        if not rates:
-            return True
-
-        today = fields.Date.today()
-
-        for currency in self.search([]):
-            new_rate = rates.get(currency.name)
-
-            if not new_rate:
-                continue
-
-            old_rate = currency.current_rate
-
-            rate_record = self.env["res.currency.rate"].search(
-                [
-                    ("currency_id", "=", currency.id),
-                    ("company_id", "=", company.id),
-                    ("name", "=", today),
-                ],
-                limit=1,
+        try:
+            rates = CurrencyRateProvider.get_rates(
+                provider,
+                base_currency,
             )
 
-            if rate_record:
-                rate_record.write({
-                    "rate": new_rate,
+            if not rates:
+                raise Exception("No exchange rates received.")
+
+            today = fields.Date.today()
+
+            for currency in self.search([]):
+
+                new_rate = rates.get(currency.name)
+
+                if not new_rate:
+                    continue
+
+                old_rate = currency.current_rate
+
+                rate_record = self.env["res.currency.rate"].search(
+                    [
+                        ("currency_id", "=", currency.id),
+                        ("company_id", "=", company.id),
+                        ("name", "=", today),
+                    ],
+                    limit=1,
+                )
+
+                if rate_record:
+                    rate_record.write({
+                        "rate": new_rate,
+                    })
+                else:
+                    self.env["res.currency.rate"].create({
+                        "currency_id": currency.id,
+                        "company_id": company.id,
+                        "name": today,
+                        "rate": new_rate,
+                    })
+
+                currency.write({
+                    "manual_rate": new_rate,
+                    "last_update": fields.Datetime.now(),
+                    "updated_by": self.env.user.id,
                 })
-            else:
-                self.env["res.currency.rate"].create({
+
+                self.env["currency.rate.history"].create({
                     "currency_id": currency.id,
                     "company_id": company.id,
-                    "name": today,
-                    "rate": new_rate,
+                    "old_rate": old_rate,
+                    "new_rate": new_rate,
+                    "update_type": "automatic",
+                    "updated_by": self.env.user.id,
                 })
 
-            currency.write({
-                "manual_rate": new_rate,
-                "last_update": fields.Datetime.now(),
-                "updated_by": self.env.user.id,
+            self.env["currency.rate.log"].create({
+                "provider": provider,
+                "status": "success",
+                "message": "Automatic update completed successfully.",
+                "company_id": company.id,
             })
 
-            self.env["currency.rate.history"].create({
-                "currency_id": currency.id,
+        except Exception as error:
+
+            self.env["currency.rate.log"].create({
+                "provider": provider,
+                "status": "failed",
+                "message": str(error),
                 "company_id": company.id,
-                "old_rate": old_rate,
-                "new_rate": new_rate,
-                "update_type": "automatic",
-                "updated_by": self.env.user.id,
             })
 
         return True
