@@ -31,10 +31,9 @@ class ResCurrency(models.Model):
         for currency in self:
             rate = self.env["res.currency.rate"].search(
                 [("currency_id", "=", currency.id)],
-                order="name desc,id desc",
+                order="name desc, id desc",
                 limit=1,
             )
-
             currency.current_rate = rate.rate if rate else 0.0
 
     def action_update_manual_rate(self):
@@ -49,5 +48,16 @@ class ResCurrency(models.Model):
                 "rate": currency.manual_rate,
             })
 
-            currency.last_update = fields.Datetime.now()
-            currency.updated_by = self.env.user
+            currency.write({
+                "last_update": fields.Datetime.now(),
+                "updated_by": self.env.user.id,
+            })
+
+        return True
+
+    def action_auto_update_rates(self):
+        """
+        Placeholder for automatic exchange rate update.
+        سيتم ربطها لاحقًا بمزود أسعار العملات (Frankfurter أو ECB أو أي API آخر).
+        """
+        return True
