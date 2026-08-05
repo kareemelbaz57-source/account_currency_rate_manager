@@ -11,7 +11,7 @@
 
                 <app string="Currency Rate Manager" name="currency_rate_manager">
 
-                    <block title="Currency Rate Settings">
+                    <block title="Currency Settings">
 
                         <setting string="Provider">
                             <field name="currency_provider"/>
@@ -21,18 +21,13 @@
                             <field name="currency_auto_update"/>
                         </setting>
 
-                        <setting string="Update Interval">
+                        <setting string="Interval (Hours)">
                             <field name="currency_update_interval"/>
                         </setting>
 
-                        <setting string="Connection">
-
-                            <button
-                                name="action_test_connection"
-                                type="object"
-                                string="Test Connection"
-                                class="btn-primary"/>
-
+                        <setting string="Last Synchronization">
+                            <field name="company_id"
+                                   invisible="1"/>
                         </setting>
 
                     </block>
