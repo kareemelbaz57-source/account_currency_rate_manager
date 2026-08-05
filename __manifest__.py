@@ -22,6 +22,7 @@ Community & Enterprise
         "views/account_move_views.xml"
         "views/res_config_settings_views.xml"
         "views/currency_rate_history_views.xml"
+        "views/currency_rate_log_views.xml"
         "views/menu.xml"
     ],
     "installable": True,
