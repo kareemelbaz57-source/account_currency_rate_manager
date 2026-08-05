@@ -9,7 +9,7 @@
 
                 <group>
                     <field name="currency_id"/>
-                    <field name="company_id"/>
+                    <field name="company_id" readonly="1"/>
                     <field name="rate"/>
                     <field name="date"/>
                 </group>
