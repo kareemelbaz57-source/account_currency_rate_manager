@@ -55,7 +55,7 @@ class ResCurrency(models.Model):
         }
 
     def action_auto_update_rates(self):
-        provider = self.env["ir.config_parameter"].sudo().get_param(
+        provider = self.env.company.currency_provider.sudo().get_param(
             "account_currency_rate_manager.provider",
             default="manual",
         )
