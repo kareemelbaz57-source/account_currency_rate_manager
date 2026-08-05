@@ -1,1 +1,52 @@
 
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_currency_rate_history_tree" model="ir.ui.view">
+        <field name="name">currency.rate.history.tree</field>
+        <field name="model">currency.rate.history</field>
+        <field name="arch" type="xml">
+            <list string="Currency Rate History">
+                <field name="update_date"/>
+                <field name="currency_id"/>
+                <field name="company_id"/>
+                <field name="old_rate"/>
+                <field name="new_rate"/>
+                <field name="update_type"/>
+                <field name="updated_by"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_currency_rate_history_form" model="ir.ui.view">
+        <field name="name">currency.rate.history.form</field>
+        <field name="model">currency.rate.history</field>
+        <field name="arch" type="xml">
+            <form string="Currency Rate History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="update_type" readonly="1"/>
+                        </group>
+
+                        <group>
+                            <field name="old_rate" readonly="1"/>
+                            <field name="new_rate" readonly="1"/>
+                            <field name="update_date" readonly="1"/>
+                            <field name="updated_by" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_currency_rate_history" model="ir.actions.act_window">
+        <field name="name">Currency Rate History</field>
+        <field name="res_model">currency.rate.history</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
