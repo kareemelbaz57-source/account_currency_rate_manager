@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <record id="res_config_settings_view_currency_rate" model="ir.ui.view">
-        <field name="name">res.config.settings.currency.rate</field>
+        <field name="name">res.config.settings.currency.rate.manager</field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-
             <xpath expr="//form" position="inside">
+                <app string="إدارة أسعار العملات"
+                     name="currency_rate_manager"
+                     groups="account.group_account_manager">
 
-                <app string="Currency Rate Manager" name="currency_rate_manager">
-
-                    <block title="Currency Settings">
-
-                        <setting string="Provider">
+                    <block title="إعدادات أسعار العملات">
+                        <setting string="مزود أسعار العملات">
                             <field name="currency_provider"/>
                         </setting>
 
-                        <setting string="Automatic Update">
+                        <setting string="التحديث التلقائي">
                             <field name="currency_auto_update"/>
                         </setting>
 
-                        <setting string="Interval (Hours)">
+                        <setting string="فترة التحديث بالساعات"
+                                 invisible="not currency_auto_update">
                             <field name="currency_update_interval"/>
                         </setting>
 
-                        <setting string="Last Synchronization">
-                            <field name="company_id"
-                                   invisible="1"/>
+                        <setting string="آخر مزامنة">
+                            <field name="currency_last_sync" readonly="1"/>
                         </setting>
 
+                        <setting string="اختبار الاتصال"
+                                 invisible="currency_provider == 'manual'">
+                            <button name="action_test_connection"
+                                    type="object"
+                                    string="اختبار الاتصال"
+                                    class="btn-primary"/>
+                        </setting>
                     </block>
-
                 </app>
-
             </xpath>
-
         </field>
     </record>
-
 </odoo>
