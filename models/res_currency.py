@@ -1,7 +1,6 @@
 from odoo import api, fields, models
 
-from ..services.frankfurter_service import FrankfurterService
-from ..services.ecb_service import ECBService
+from ..services.provider import CurrencyRateProvider
 
 
 class ResCurrency(models.Model):
@@ -67,12 +66,13 @@ class ResCurrency(models.Model):
         company = self.env.company
         base_currency = company.currency_id.name
 
-        if provider == "frankfurter":
-            rates = FrankfurterService.get_rates(base_currency)
-        elif provider == "ecb":
-            rates = ECBService.get_rates(base_currency)
-        else:
-            return True
+       rates = CurrencyRateProvider.get_rates(
+    provider,
+    base_currency,
+)
+
+if not rates:
+    return True
 
         for currency in self.search([]):
             if currency.name not in rates:
