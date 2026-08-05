@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class CurrencyRateUpdateWizard(models.TransientModel):
@@ -10,17 +10,28 @@ class CurrencyRateUpdateWizard(models.TransientModel):
         required=True,
     )
 
+    company_id = fields.Many2one(
+        "res.company",
+        default=lambda self: self.env.company,
+        required=True,
+    )
+
     rate = fields.Float(
         string="Exchange Rate",
-        required=True,
         digits=(12, 6),
+        required=True,
+    )
+
+    date = fields.Date(
+        default=fields.Date.context_today,
+        required=True,
     )
 
     def action_confirm(self):
         self.env["res.currency.rate"].create({
             "currency_id": self.currency_id.id,
-            "company_id": self.env.company.id,
-            "name": fields.Date.today(),
+            "company_id": self.company_id.id,
+            "name": self.date,
             "rate": self.rate,
         })
 
