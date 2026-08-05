@@ -1,1 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
 
+    <record id="view_currency_rate_log_tree" model="ir.ui.view">
+        <field name="name">currency.rate.log.tree</field>
+        <field name="model">currency.rate.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date"/>
+                <field name="provider"/>
+                <field name="status"/>
+                <field name="company_id"/>
+                <field name="message"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_currency_rate_log" model="ir.actions.act_window">
+        <field name="name">Currency Update Logs</field>
+        <field name="res_model">currency.rate.log</field>
+        <field name="view_mode">list</field>
+    </record>
+
+</odoo>
