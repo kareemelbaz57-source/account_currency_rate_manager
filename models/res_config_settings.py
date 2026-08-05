@@ -34,7 +34,14 @@ class ResConfigSettings(models.TransientModel):
         )
 
         if not rates:
-            raise UserError(_("Connection failed."))
+            raise UserError(_("Unable to connect to the selected provider."))
+
+        self.env["currency.rate.log"].create({
+            "provider": self.currency_provider,
+            "status": "success",
+            "message": "Connection successful.",
+            "company_id": self.company_id.id,
+        })
 
         return {
             "type": "ir.actions.client",
