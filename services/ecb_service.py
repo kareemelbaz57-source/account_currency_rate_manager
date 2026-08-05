@@ -2,6 +2,11 @@ import requests
 
 
 class ECBService:
+    """
+    TODO:
+    Replace this implementation with the official
+    European Central Bank API.
+    """
 
     BASE_URL = "https://api.frankfurter.app/latest"
 
