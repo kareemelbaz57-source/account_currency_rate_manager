@@ -1,1 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
 
+    <record id="ir_cron_currency_rate_update" model="ir.cron">
+        <field name="name">Currency Rate Auto Update</field>
+        <field name="model_id" ref="base.model_res_currency"/>
+        <field name="state">code</field>
+        <field name="code">model.action_auto_update_rates()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">False</field>
+    </record>
+
+</odoo>
