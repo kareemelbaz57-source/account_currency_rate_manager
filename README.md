@@ -1,22 +1,40 @@
 # Account Currency Rate Manager
 
-Professional currency rate management for Odoo 19 Community & Enterprise.
+Professional Currency Rate Management for Odoo 19.
 
 ## Features
 
-- Manual currency rate update
-- Show current exchange rate
-- Display exchange rate on journal entries
-- Multi-company ready
-- Odoo 19 Community compatible
-- Odoo 19 Enterprise compatible
+- Manual Currency Rate Update
+- Automatic Currency Rate Update
+- Frankfurter API
+- ECB Provider
+- Currency Dashboard
+- Currency History
+- Currency Update Logs
+- Multi Company Support
+- Scheduled Updates
+- Export Currency History to Excel
+
+## Supported Versions
+
+- Odoo 19 Community
+- Odoo 19 Enterprise
 
 ## Installation
 
-1. Copy the module into addons.
+1. Copy the module into the addons folder.
 2. Update Apps List.
-3. Install Account Currency Rate Manager.
+3. Install **Account Currency Rate Manager**.
+
+## Requirements
+
+- Python requests
+- openpyxl
 
 ## License
 
 LGPL-3
+
+## Author
+
+Kareem Elbaz
