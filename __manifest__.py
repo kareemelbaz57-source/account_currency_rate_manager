@@ -23,6 +23,7 @@ Community & Enterprise
         "views/currency_dashboard_views.xml",
         "views/menu.xml",
         "wizard/currency_rate_update_wizard.xml",
+        "wizard/export_currency_history_wizard.xml",
         "data/ir_cron.xml",
     ],
     "installable": True,
