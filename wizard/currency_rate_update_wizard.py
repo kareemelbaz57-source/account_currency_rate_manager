@@ -43,5 +43,13 @@ class CurrencyRateUpdateWizard(models.TransientModel):
             "last_update": fields.Datetime.now(),
             "updated_by": self.env.user.id,
         })
-
+        
+        self.env["currency.rate.history"].create({
+            "currency_id": self.currency_id.id,
+            "company_id": self.company_id.id,
+            "old_rate": self.currency_id.current_rate,
+            "new_rate": self.rate,
+            "updated_by": self.env.user.id,
+            "update_type": "manual",
+        })  
         return {"type": "ir.actions.act_window_close"}
