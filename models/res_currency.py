@@ -1,3 +1,11 @@
+from odoo import api, fields, models
+
+from ..services.provider import CurrencyRateProvider
+
+
+class ResCurrency(models.Model):
+    _inherit = "res.currency"
+
 def action_auto_update_rates(self):
     companies = self.env["res.company"].search([
         ("currency_auto_update", "=", True),
