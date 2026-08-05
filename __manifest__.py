@@ -1,7 +1,22 @@
 {
     "name": "Account Currency Rate Manager",
     "version": "19.0.1.0.0",
-    "depends": ["account"],
-    "data": [],
-    "installable": true
+    "summary": "Professional Currency Rate Management",
+    "description": """
+Professional Currency Rate Management for Odoo 19
+Community & Enterprise
+""",
+    "category": "Accounting",
+    "author": "Kareem Elbaz",
+    "license": "LGPL-3",
+    "depends": [
+        "account",
+    ],
+    "data": [
+        "views/res_currency_views.xml",
+        "views/account_move_views.xml",
+    ],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }
