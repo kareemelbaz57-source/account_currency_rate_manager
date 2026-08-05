@@ -20,6 +20,7 @@ Community & Enterprise
         "views/res_config_settings_views.xml",
         "views/currency_rate_history_views.xml",
         "views/currency_rate_log_views.xml",
+        "views/currency_dashboard_views.xml",
         "views/menu.xml",
         "wizard/currency_rate_update_wizard.xml",
         "data/ir_cron.xml",
