@@ -9,20 +9,25 @@ class AccountMove(models.Model):
         compute="_compute_currency_rate",
         digits=(12, 6),
         readonly=True,
+        store=False,
     )
 
-    @api.depends("currency_id")
+    @api.depends("currency_id", "company_id", "date")
     def _compute_currency_rate(self):
+        CurrencyRate = self.env["res.currency.rate"]
+
         for move in self:
             if not move.currency_id:
                 move.currency_rate = 1.0
                 continue
 
             company = move.company_id or self.env.company
+            rate_date = move.date or fields.Date.today()
 
-            rate = self.env["res.currency.rate"].search(
+            rate = CurrencyRate.search(
                 [
                     ("currency_id", "=", move.currency_id.id),
+                    ("name", "<=", rate_date),
                     "|",
                     ("company_id", "=", company.id),
                     ("company_id", "=", False),
