@@ -8,4 +8,11 @@
         action="action_currency_rate_history"
         sequence="200"/>
 
+    <menuitem
+        id="menu_currency_rate_logs"
+        name="Currency Update Logs"
+        parent="account.menu_finance_configuration"
+        action="action_currency_rate_log"
+        sequence="201"/>
+
 </odoo>
