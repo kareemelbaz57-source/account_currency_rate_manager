@@ -16,6 +16,7 @@ Community & Enterprise
         "security/security.xml",
         "views/res_currency_views.xml",
         "views/account_move_views.xml",
+        "wizard/currency_rate_update_wizard.xml",
     ],
     "installable": True,
     "application": False,
