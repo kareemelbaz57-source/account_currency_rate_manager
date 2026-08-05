@@ -12,30 +12,23 @@
                 <group string="Currency Rate Manager">
 
                     <group>
-
                         <field name="current_rate" readonly="1"/>
-
                         <field name="manual_rate"/>
-
                     </group>
 
                     <group>
-
                         <field name="last_update" readonly="1"/>
-
                         <field name="updated_by" readonly="1"/>
-
                     </group>
 
-                    <footer>
-
+                    <group>
                         <button
                             name="action_update_manual_rate"
                             string="Update Rate"
                             type="object"
-                            class="btn-primary"/>
-
-                    </footer>
+                            class="btn-primary"
+                            icon="fa-refresh"/>
+                    </group>
 
                 </group>
 
