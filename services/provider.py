@@ -4,14 +4,14 @@ from .ecb_service import ECBService
 
 class CurrencyRateProvider:
 
-    @staticmethod
-    def get_rates(provider, base_currency):
-        providers = {
-            "frankfurter": FrankfurterService,
-            "ecb": ECBService,
-        }
+    PROVIDERS = {
+        "frankfurter": FrankfurterService,
+        "ecb": ECBService,
+    }
 
-        service = providers.get(provider)
+    @classmethod
+    def get_rates(cls, provider, base_currency):
+        service = cls.PROVIDERS.get(provider)
 
         if not service:
             return {}
