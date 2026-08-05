@@ -17,7 +17,7 @@ Community & Enterprise
         "security/ir.model.access.csv",
         "views/res_currency_views.xml",
         "views/account_move_views.xml",
-        "wizard/currency_rate_update_wizard_views.xml",
+        "wizard/currency_rate_update_wizard.xml",
         "data/ir_cron.xml",
     ],
     "installable": True,
