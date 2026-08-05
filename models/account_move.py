@@ -12,9 +12,10 @@ class AccountMove(models.Model):
         store=False,
     )
 
-    @api.depends("currency_id")
+    @api.depends("currency_id", "currency_id.current_rate")
     def _compute_currency_rate(self):
         for move in self:
-            move.currency_rate = (
-                move.currency_id.current_rate if move.currency_id else 1.0
-            )
+            if move.currency_id:
+                move.currency_rate = move.currency_id.current_rate
+            else:
+                move.currency_rate = 1.0
