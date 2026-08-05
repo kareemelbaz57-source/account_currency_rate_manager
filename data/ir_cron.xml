@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="ir_cron_currency_auto_update" model="ir.cron">
+
+        <field name="name">Automatic Currency Update</field>
+
+        <field name="model_id" ref="base.model_res_currency"/>
+
+        <field name="state">code</field>
+
+        <field name="code">
+model.action_auto_update_rates()
+        </field>
+
+        <field name="interval_number">1</field>
+
+        <field name="interval_type">hours</field>
+
+        <field name="numbercall">-1</field>
+
+        <field name="active">True</field>
+
+    </record>
+
+</odoo>

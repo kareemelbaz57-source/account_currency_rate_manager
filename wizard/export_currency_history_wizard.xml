@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_export_currency_history_wizard" model="ir.ui.view">
+        <field name="name">export.currency.history.wizard.form</field>
+        <field name="model">export.currency.history.wizard</field>
+        <field name="arch" type="xml">
+
+            <form string="Export Currency History">
+
+                <group>
+
+                    <field
+                        name="file_name"
+                        invisible="1"/>
+
+                    <field
+                        name="file_data"
+                        filename="file_name"
+                        readonly="1"/>
+
+                </group>
+
+                <footer>
+
+                    <button
+                        name="action_export"
+                        string="Export"
+                        type="object"
+                        class="btn-primary"/>
+
+                    <button
+                        string="Close"
+                        special="cancel"/>
+
+                </footer>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_export_currency_history" model="ir.actions.act_window">
+        <field name="name">Export Currency History</field>
+        <field name="res_model">export.currency.history.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
