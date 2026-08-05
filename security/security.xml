@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="group_currency_rate_manager" model="res.groups">
+        <field name="name">Currency Rate Manager</field>
+        <field name="category_id" ref="base.module_category_accounting"/>
+    </record>
+
+</odoo>
