@@ -21,6 +21,7 @@ Community & Enterprise
         "data/ir_cron.xml",
         "views/account_move_views.xml"
         "views/currency_rate_history_views.xml"
+        "views/menu.xml"
     ],
     "installable": True,
     "application": False,
