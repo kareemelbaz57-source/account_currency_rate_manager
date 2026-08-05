@@ -37,6 +37,20 @@ class ResCurrency(models.Model):
             currency.current_rate = rate.rate if rate else 0.0
 
     def action_update_manual_rate(self):
+    self.ensure_one()
+
+    return {
+        "type": "ir.actions.act_window",
+        "name": "Update Currency Rate",
+        "res_model": "currency.rate.update.wizard",
+        "view_mode": "form",
+        "target": "new",
+        "context": {
+            "default_currency_id": self.id,
+            "default_company_id": self.env.company.id,
+            "default_rate": self.current_rate or 1.0,
+        },
+    }
         for currency in self:
             if currency.manual_rate <= 0:
                 continue
