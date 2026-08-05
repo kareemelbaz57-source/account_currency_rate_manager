@@ -2,6 +2,13 @@
 <odoo>
 
     <menuitem
+        id="menu_currency_dashboard"
+        name="Currency Dashboard"
+        parent="account.menu_finance_configuration"
+        action="action_currency_dashboard"
+        sequence="190"/>
+
+    <menuitem
         id="menu_currency_rate_history"
         name="Currency Rate History"
         parent="account.menu_finance_configuration"
@@ -13,6 +20,6 @@
         name="Currency Update Logs"
         parent="account.menu_finance_configuration"
         action="action_currency_rate_log"
-        sequence="201"/>
+        sequence="210"/>
 
 </odoo>
