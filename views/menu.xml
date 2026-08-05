@@ -22,4 +22,11 @@
         action="action_currency_rate_log"
         sequence="210"/>
 
+    <menuitem
+        id="menu_export_currency_history"
+        name="Export Currency History"
+        parent="account.menu_finance_configuration"
+        action="action_export_currency_history"
+        sequence="220"/>
+
 </odoo>
