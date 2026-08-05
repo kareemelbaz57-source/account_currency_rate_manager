@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_currency_rate_history"
+        name="Currency Rate History"
+        parent="account.menu_finance_configuration"
+        action="action_currency_rate_history"
+        sequence="200"/>
+
+</odoo>
