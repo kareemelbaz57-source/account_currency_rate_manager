@@ -23,3 +23,8 @@ class ResCompany(models.Model):
         string="Update Interval (Hours)",
         default=24,
     )
+
+    currency_last_sync = fields.Datetime(
+        string="Last Synchronization",
+        readonly=True,
+    )
