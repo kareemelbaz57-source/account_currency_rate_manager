@@ -7,15 +7,34 @@
         <field name="arch" type="xml">
             <form string="Currency Dashboard" create="0" edit="0">
 
-                <group>
+                <sheet>
 
-                    <field name="currency_count" readonly="1"/>
+                    <group>
 
-                    <field name="history_count" readonly="1"/>
+                        <group>
+                            <field name="currency_count" readonly="1"/>
+                            <field name="history_count" readonly="1"/>
+                        </group>
 
-                    <field name="last_update" readonly="1"/>
+                        <group>
+                            <field name="provider" readonly="1"/>
+                            <field name="last_update" readonly="1"/>
+                        </group>
 
-                </group>
+                    </group>
+
+                    <footer>
+
+                        <button
+                            name="action_update_now"
+                            type="object"
+                            string="Update Now"
+                            class="btn-primary"
+                            icon="fa-refresh"/>
+
+                    </footer>
+
+                </sheet>
 
             </form>
         </field>
